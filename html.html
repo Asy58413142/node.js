@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{margin: 0;padding: 0;}
+		.document{
+			width: 900px;
+			border: 1px #f00 solid;
+			/*使div本身左右边界自适应，从而达到居中的效果*/
+			margin: 0 auto;
+		}
+		.marginAuto{
+			width: 900px;
+			border: 1px #f00 solid;
+			/*使div本身左右边界自适应，从而达到居中的效果*/
+			margin: 0 auto;
+		}
+		.image-box{
+			border: 1px solid #000;
+			margin: 10px auto;
+			/*使内容水平居中*/
+			text-align: center;
+		}
+		/*定义某个id的下面的标签的属性不会关系到其他标签里或id里的相关标签的属性*/
+		.image-box img{
+
+			margin: 10px;
+			border: 1px #ccc solid;
+			padding: 2px;
+		}
+		 #left{
+			height:  50px;
+			background: #f0f;
+			float:left;
+		}
+		 #right{
+			height: 50px;
+			background: #00f;
+			float:right;
+		}
+		.clearFloat{
+			/*清除元素受到的浮动影响1.*/
+			/*clear: both;*/
+			/*2.*/
+			width: 100%;
+			overflow: hidden;
+
+		}
+		.relativeBox1{
+			background: #Ff0;
+			width: 960px;
+			height: 180px;
+			position:relative;
+			top: 70px;
+			left: 60px;
+		}	
+		.relativeBox2{
+			background: #00F;
+			width: 960px;
+
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="document">
+		<p>块级元素：div ul ui p dl dt。占据一行默认</p>
+		<p>行级元素：span strong img input</p>
+	</div>
+	<div class="marginAuto">
+		<div class="image-box">
+		<img src="http://img6.bdstatic.com/img/image/smallpic/weimei1110.jpg" width="80px" height="80px">
+		<img src="http://img6.bdstatic.com/img/image/smallpic/chongwu1110.jpg" width="80px" height="80px">
+		<img src="http://img6.bdstatic.com/img/image/smallpic/dongman1110.jpg" width="80px" height="80px">
+		<img src="http://img6.bdstatic.com/img/image/smallpic/PPT1110.JPG" width="80px" height="80px">
+		<img src="http://img6.bdstatic.com/img/image/smallpic/xiaoqingxin1110.jpeg" width="80px" height="80px">
+	</div>
+	<p class="clearFloat">sdasndkjasnbfksanflksnasdasda</p>
+	<div id="left">
+			box1 会对紧挨着的后面第一个元素造成影响
+		</div>
+	 	<img class="clearFloat" src="http://img6.bdstatic.com/img/image/smallpic/touxiang1110.jpeg" >
+	 	
+	<div id="right">
+	 		box2 会对紧挨着的后面第一个元素造成影响
+
+	 </div>
+	<p class="clearFloat">sdasndkjasnbfksanflksnasdasda</p>
+	
+	<!-- 相对定位是相对于自身原来的位置发生变化
+		 相对定位在位置上发生变化的时候会产生Z-index属性
+		 没有脱离标准文档流
+	 -->
+	 <!-- 绝对定位完全脱离标准文档流
+		 当有偏移的时候：以外层最近一个设置了相对定位的为准偏移，没有则以html
+		 当没有偏移量：无论是否存在已定位的祖先元素，都保持在元素初始位置，脱离文档流，宽度塌陷（随内容变化而变化）
+
+	  -->
+	<div class="相对定位">
+		<div class="relativeBox1">
+			
+		</div>
+		<div class="relativeBox2">
+			
+		</div>
+	</div>
+</body>
+	
+</html>

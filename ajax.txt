@@ -1,0 +1,69 @@
+function storelist(score){
+	$.ajax({
+	    type: 'POST',
+	    url: "/Store/storelist",
+	    dataType: 'json',
+	    async:false,
+	    success: function(jdata){
+	    	m_cff.loading('hide');
+	      	if(jdata.code=='0' && jdata.data!=null){
+	      			$(".weui_msg").hide();
+	        		if(typeof jdata.data === "object"){
+	        			var store_html = '';
+	        			$.each( jdata.data, function(k,v){
+                                            
+	        				store_html += '<div class="weui_panel2 weui_panel_access" style="margin-top:0"><div class="weui_panel_bd">';
+	        				store_html += '<div class="weui_cells_title" style="background: #ccc; padding: 0px; margin: 0px; text-align: center; line-height: 40px; height: 40px;">'+v.city_name+'&nbsp;&nbsp;('+v.city_store_count+'家门店)</div>';  //<!--<span class="icon-qr"></span> -->
+							
+						  	if( typeof v.city_store_list === "object" && v.city_store_list!=null){
+
+						  		$.each( v.city_store_list, function(k1,v1){
+                                                                    store_html += '<div  class="weui_media_box weui_media_appmsg">';
+                                store_html += '<div class="weui_media_hd">';
+                                store_html += '<a href="/store/storedetail.html?store_id='+v1.store_id+'"><img class="weui_media_appmsg_thumb" src="' + v1.mid_image + '" alt=""></a>';
+                                store_html += '</div>';
+                                store_html += '<div class="weui_media_bd">';
+                                store_html += '<a href="/store/storedetail.html?store_id='+v1.store_id+'"><h4 class="weui_media_title">' + v1.name + '</h4></a>';
+                                store_html += '<p class="weui_media_desc">';
+                                store_html += '<a href="/store/storedetail.html?store_id='+v1.store_id+'">'+"<span>&nbsp;&nbsp;" + score[v1.store_id]['score'] + '分&nbsp;&nbsp;</span>';
+                                store_html += ' <span class="ll bigstar45"></span> ';
+                                store_html += "<span>&nbsp;&nbsp;" + score[v1.store_id]['count'] + '评价</span></a>';
+                                store_html += '</p>';
+                                store_html += '<a href="/store/storedetail.html?store_id='+v1.store_id+'"><p class="weui_media_desc" style="text-align:left;margin-right:48px;margin-top: 4px;">' + v1.address + '</p>';
+                                store_html += '<p class="weui_media_desc" style="position:absolute;right:5px;bottom:30px;color:#ff5f00">';
+                                if (v1.distance != '' && v1.distance != null && v1.distance !== undefined) {
+                                    store_html += v1.distance + 'km';
+                                }
+                                store_html += '</p></a>';
+                                store_html += '</div>';
+                                store_html += '</div>';
+//                                if(k1==v.city_store_list.length-1) {
+//                                     store_html += '<div class="store-center" style="margin-bottom: 0;">';            
+//                                }else {
+//                                    store_html += '<div class="store-center">';    
+//                               }
+                             store_html += '<div class="store-center">';    
+                                store_html += '<div class="weui_cell_bd weui_cell_primary right_border" style="height:22px;">';
+                                store_html += '<div style="float:left;width:33.33%;border-right:1px solid #eee;margin-left:-1px" class="store_p" onclick="store_p(this)"  longitude="'+v1.longitude+'" latitude="'+v1.latitude+'"  name="' + v1.name + '" address="' + v1.address + '"><img src="/Public/Mobile/img/store/dw.png" class="store_dh"  >导航</div>';
+                                store_html += '<div style="float:left;width:33.33%;border-right:1px solid #eee;margin-left:-1px"><a href="/store/storedetail.html?store_id='+v1.store_id+'"><img src="/Public/Mobile/img/store/chakanpl.png" class="store_tel" style="width:17px" >查看评论</a></div>';
+                             
+                                store_html += '';
+                                store_html += '<div style="float:right;width:33.33%;"><a href="tel:'+v1.tel+'"><img src="/Public/Mobile/img/store/tel.png" class="store_tel">电话</a></div>';
+                                store_html += '</div>';
+                                
+                                store_html += '</div>';
+                            });
+                        }
+                        store_html += '</div></div>';
+							
+	        			});
+	        			$('.container').append(store_html);  			
+	        		}
+	        }else{
+	        	$(".weui_msg").show();
+	        }
+     
+	    }
+    });
+
+}
